@@ -8,4 +8,6 @@ public interface AnimeService {
 	
 	List<Anime> listAll();
 
+	Anime findById(Long id);
+
 }
