@@ -11,7 +11,7 @@ import academy.devdojo.springboot2.domain.Anime;
 @Service
 public class AnimeServiceImpl implements AnimeService {
 	
-	private List<Anime> animes = List.of(new Anime(1L, "DBZ"), new Anime(2L, "Bersek"));
+	private static List<Anime> animes = List.of(new Anime(1L, "DBZ"), new Anime(2L, "Bersek"));
 	
 	@Override
 	public List<Anime> listAll() {
@@ -27,5 +27,10 @@ public class AnimeServiceImpl implements AnimeService {
 				.findFirst()
 				.orElseThrow(()-> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found."));
 	}
-
+	
+	public Anime save(Anime anime){		
+		
+		return null;
+		
+	}
 }

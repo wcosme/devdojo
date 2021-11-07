@@ -9,5 +9,7 @@ public interface AnimeService {
 	List<Anime> listAll();
 
 	Anime findById(Long id);
+	
+	Anime save(Anime anime);
 
 }
