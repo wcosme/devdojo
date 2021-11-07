@@ -7,9 +7,8 @@ import academy.devdojo.springboot2.domain.Anime;
 public interface AnimeService {
 	
 	List<Anime> listAll();
-
-	Anime findById(Long id);
-	
+	Anime findById(Long id);	
 	Anime save(Anime anime);
+	void delete(Long id);
 
 }
