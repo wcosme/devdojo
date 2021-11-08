@@ -9,6 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import academy.devdojo.springboot2.domain.Anime;
 import academy.devdojo.springboot2.repository.AnimeRepository;
+import academy.devdojo.springboot2.request.AnimePostRequestBody;
+import academy.devdojo.springboot2.request.AnimePutRequestBody;
 
 @Service
 public class AnimeServiceImpl implements AnimeService {
@@ -24,15 +26,30 @@ public class AnimeServiceImpl implements AnimeService {
 	@Override
 	public Anime findById(Long id) {
 
-		return repository.findAll().stream().filter(anime -> anime.getId().equals(id)).findFirst()
+		return repository.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found."));
 	}
 
-	public Anime save(Anime anime) {
-		return repository.save(anime);
+	public Anime save(AnimePostRequestBody animePostRequestBody) {
+		return repository.save(Anime.builder().name(animePostRequestBody.getName()).build());
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		repository.delete(findById(id));
+	}
+
+	@Override
+	public void replace(AnimePutRequestBody requestBody) {
+		
+		Anime animeDoBanco = findById(requestBody.getId());
+		
+		Anime anime = Anime.builder()
+				.id(animeDoBanco.getId())
+				.name(requestBody.getName())
+				.build();
+		
+		repository.save(anime);
+		
+		
 	}
 }

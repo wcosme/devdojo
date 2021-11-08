@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.request.AnimePostRequestBody;
+import academy.devdojo.springboot2.request.AnimePutRequestBody;
 import academy.devdojo.springboot2.service.AnimeService;
 import academy.devdojo.springboot2.util.DateUtil;
 import lombok.extern.log4j.Log4j2;
@@ -44,8 +47,8 @@ public class AnimeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody Anime anime){
-		return new ResponseEntity<>(service.save(anime), HttpStatus.CREATED);
+	public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody requestBody){
+		return new ResponseEntity<>(service.save(requestBody), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -55,5 +58,11 @@ public class AnimeController {
 		
 		return ResponseEntity.noContent().build();
 		
+	}
+	
+	@PutMapping
+	public ResponseEntity<Anime> replace(@RequestBody AnimePutRequestBody requestBody){
+		service.replace(requestBody);		
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
