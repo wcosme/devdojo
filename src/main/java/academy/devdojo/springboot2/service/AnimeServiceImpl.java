@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.mapper.AnimeMapper;
 import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.request.AnimePostRequestBody;
 import academy.devdojo.springboot2.request.AnimePutRequestBody;
@@ -17,6 +18,9 @@ public class AnimeServiceImpl implements AnimeService {
 
 	@Autowired
 	private AnimeRepository repository;
+	
+	@Autowired
+	private AnimeMapper mapper;
 
 	@Override
 	public List<Anime> listAll() {
@@ -31,7 +35,7 @@ public class AnimeServiceImpl implements AnimeService {
 	}
 
 	public Anime save(AnimePostRequestBody animePostRequestBody) {
-		return repository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+		return repository.save(mapper.toAnime(animePostRequestBody));
 	}
 
 	public void delete(Long id) {
@@ -43,13 +47,10 @@ public class AnimeServiceImpl implements AnimeService {
 		
 		Anime animeDoBanco = findById(requestBody.getId());
 		
-		Anime anime = Anime.builder()
-				.id(animeDoBanco.getId())
-				.name(requestBody.getName())
-				.build();
+		Anime anime = mapper.toAnime(requestBody);
+		anime.setId(animeDoBanco.getId());
 		
-		repository.save(anime);
-		
+		repository.save(anime);		
 		
 	}
 }

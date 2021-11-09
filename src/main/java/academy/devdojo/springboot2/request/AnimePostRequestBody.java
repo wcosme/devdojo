@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnimePostRequestBody {
 	
+	private Long id;
 	private String name;
 
 }
