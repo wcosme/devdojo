@@ -9,6 +9,7 @@ import academy.devdojo.springboot2.request.AnimePutRequestBody;
 public interface AnimeService {
 	
 	List<Anime> listAll();
+	List<Anime> findByName(String name);
 	Anime findById(Long id);	
 	Anime save(AnimePostRequestBody animePostRequestBody);
 	void delete(Long id);

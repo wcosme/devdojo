@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import academy.devdojo.springboot2.domain.Anime;
@@ -35,14 +36,19 @@ public class AnimeController {
 	
 	@GetMapping
 	public ResponseEntity<List<Anime>> list(){
-		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-		
+		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));		
 		return ResponseEntity.ok(service.listAll());
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Anime> findById(@PathVariable Long id){
 		return ResponseEntity.ok(service.findById(id));
+		
+	}
+	
+	@GetMapping(value = "/find")
+	public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
+		return ResponseEntity.ok(service.findByName(name));
 		
 	}
 	

@@ -26,6 +26,11 @@ public class AnimeServiceImpl implements AnimeService {
 	public List<Anime> listAll() {
 		return repository.findAll();
 	}
+	
+	@Override
+	public List<Anime> findByName(String name) {
+		return repository.findByName(name);
+	}
 
 	@Override
 	public Anime findById(Long id) {
