@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import academy.devdojo.springboot2.domain.Anime;
 import academy.devdojo.springboot2.exception.BadRequestException;
@@ -38,6 +39,7 @@ public class AnimeServiceImpl implements AnimeService {
 				.orElseThrow(() -> new BadRequestException("Anime not found."));
 	}
 
+	@Transactional
 	public Anime save(AnimePostRequestBody animePostRequestBody) {
 		return repository.save(mapper.toAnime(animePostRequestBody));
 	}
