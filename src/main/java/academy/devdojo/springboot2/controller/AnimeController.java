@@ -3,6 +3,8 @@ package academy.devdojo.springboot2.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +29,13 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("api/v1/animes")
 @Log4j2
 public class AnimeController {
-	
-	@Autowired
-	private DateUtil dateUtil;
-	
+		
 	@Autowired
 	private AnimeService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Anime>> list(){
-		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));		
+		log.info(DateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));		
 		return ResponseEntity.ok(service.listAll());
 	}
 	
@@ -53,7 +52,7 @@ public class AnimeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody requestBody){
+	public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody requestBody){
 		return new ResponseEntity<>(service.save(requestBody), HttpStatus.CREATED);
 	}
 	
