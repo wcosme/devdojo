@@ -30,6 +30,11 @@ public class AnimeServiceImpl implements AnimeService {
 	}
 	
 	@Override
+	public List<Anime> listNoPageable() {		
+		return repository.findAll();
+	}
+	
+	@Override
 	public List<Anime> findByName(String name) {
 		return repository.findByName(name);
 	}
@@ -60,5 +65,5 @@ public class AnimeServiceImpl implements AnimeService {
 		
 		repository.save(anime);		
 		
-	}
+	}	
 }

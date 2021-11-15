@@ -12,10 +12,12 @@ import academy.devdojo.springboot2.request.AnimePutRequestBody;
 public interface AnimeService {
 	
 	Page<Anime> listAll(Pageable pageable);
+	List<Anime> listNoPageable();
 	List<Anime> findByName(String name);
 	Anime findById(Long id);	
 	Anime save(AnimePostRequestBody animePostRequestBody);
 	void delete(Long id);
 	void replace(AnimePutRequestBody requestBody);
+	
 
 }
